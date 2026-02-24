@@ -1,110 +1,198 @@
 # Quick Reference Guide
 
-## Project Structure
+## Project Status
+✅ GitHub repo created and pushed  
+✅ Documentation organized  
+✅ Execution plan ready  
+🚧 Ready to start implementation
 
-```
-ML_platform_MVP/
-├── README.md                                    # Main project README
-├── QUICK_REFERENCE.md                           # This file
-└── docs/                                        # All documentation
-    ├── README.md                                # Documentation index
-    ├── project-overview/                        # High-level overview
-    │   ├── SUMMARY.md                           # Quick summary (start here!)
-    │   └── project-summary.md                   # Detailed overview
-    ├── technical/                               # Technical specs
-    │   ├── design.md                            # Architecture & design
-    │   └── requirements.md                      # Requirements
-    ├── planning/                                # Project planning
-    │   └── tasks.md                             # Task breakdown & timeline
-    └── research/                                # Research notes
-        ├── chatgpt-conversation.md              # Design discussions
-        ├── chatgpt-conversation.txt             # (text format)
-        └── chatgpt-conversation.pdf             # (PDF format)
+## Next Steps (Week 1 - Days 1-7)
+
+### Day 1-2: Project Setup
+```bash
+# Initialize Go project
+go mod init github.com/yourusername/cv-platform
+go get -u github.com/gorilla/mux
+go get -u github.com/mattn/go-sqlite3
+go get -u golang.org/x/crypto/bcrypt
+go get -u github.com/golang-jwt/jwt/v5
 ```
 
-## Where to Start
+### Day 3-4: HTTP Server & Database
+- Create `cmd/server/main.go`
+- Create `internal/api/` for HTTP handlers
+- Create `internal/db/` for database operations
+- Set up SQLite schema
 
-### I'm new to the project
-→ Read `docs/project-overview/SUMMARY.md`
+### Day 5-7: Authentication & RBAC
+- Implement user model
+- Implement JWT authentication
+- Create RBAC middleware
+- Test auth flow
 
-### I need to understand the architecture
-→ Read `docs/technical/design.md`
+## Project Structure (Recommended)
 
-### I want to know what to build
-→ Read `docs/technical/requirements.md`
+```
+cv-platform/
+├── cmd/
+│   ├── server/          # Main HTTP server
+│   └── cli/             # TUI interface
+├── internal/
+│   ├── api/             # HTTP handlers
+│   ├── auth/            # Authentication & RBAC
+│   ├── db/              # Database operations
+│   ├── models/          # Data models
+│   ├── training/        # Training orchestration
+│   ├── benchmark/       # Benchmarking logic
+│   └── inference/       # Inference service
+├── pkg/
+│   ├── python/          # Python training module
+│   └── cpp/             # C++ inference runtime
+├── scripts/             # Build and deployment scripts
+├── tests/               # Integration tests
+├── docs/                # Documentation (already exists)
+├── docker/              # Dockerfile and compose
+├── .gitignore
+├── README.md
+├── EXECUTION_PLAN.md
+├── QUICK_REFERENCE.md
+└── go.mod
+```
 
-### I need the implementation plan
-→ Read `docs/planning/tasks.md`
+## Key Technical Decisions
 
-### I want to understand the design decisions
-→ Read `docs/research/chatgpt-conversation.md`
+1. **Backend**: Go (HTTP API + orchestration)
+2. **Training**: Python (PyTorch + GA)
+3. **Inference**: C++ (ONNX Runtime + TensorRT)
+4. **Database**: SQLite (no external dependencies)
+5. **UI**: TUI (primary), HTMX (optional)
+6. **Deployment**: Docker (single container)
 
-## Key Information at a Glance
+## Critical Constraints
 
-### Tech Stack
-- **Backend**: Go (API server)
-- **Training**: Python (GA optimization)
-- **Inference**: C++ (TensorRT, ONNX Runtime)
-- **Storage**: PostgreSQL + Redis
-- **Deployment**: Docker + docker-compose
+- **GPU Workers**: Maximum 2 concurrent
+- **Concurrent Users**: 100 HTTP users
+- **Inference Latency**: < 100ms target
+- **Model Size**: Max 1 GB
+- **Dataset Size**: Max 10 GB
 
-### Timeline
-- **MVP**: 6 weeks (160 hours)
-- **Full Platform**: 9 months
+## MVP Timeline
 
-### Performance Goals
-- Latency: <100ms
-- Throughput: >10 FPS
-- Concurrent Users: 100
+- **Week 1**: Foundation & API (40h)
+- **Week 2**: Model & Dataset Management (40h)
+- **Week 3**: Training Pipeline (40h)
+- **Week 4**: Inference Runtime (50h)
+- **Week 5**: Benchmarking & GA (20h)
+- **Week 6**: Reports, Packaging & Polish (10h)
 
-### GPU Constraints
-- Max 2 concurrent GPU jobs
-- RTX 4060 target hardware
+**Total**: 160 hours / 6 weeks
 
-## Development Phases
+## Essential Commands
 
-1. **Week 1**: Containerized inference (Docker + API)
-2. **Week 2**: TensorRT integration
-3. **Week 3**: Multi-container setup (Redis + PostgreSQL)
-4. **Week 4**: Training pipeline
-5. **Week 5**: Genetic algorithm optimization
-6. **Week 6**: Auto inference engine selection
+### Development
+```bash
+# Run server
+go run cmd/server/main.go
 
-## Important Files
+# Run tests
+go test ./...
 
-| File | Purpose |
-|------|---------|
-| `docs/project-overview/SUMMARY.md` | Quick project overview |
-| `docs/technical/design.md` | System architecture |
-| `docs/technical/requirements.md` | What to build |
-| `docs/planning/tasks.md` | How to build it |
-| `docs/research/chatgpt-conversation.md` | Why we made these choices |
+# Build
+go build -o bin/cv-platform cmd/server/main.go
 
-## Common Questions
+# Docker build
+docker build -t cv-platform:latest .
 
-**Q: What models are supported?**
-A: YOLO models (YOLOv8n, YOLOv8s) for detection, segmentation, and classification
+# Docker run
+docker run -p 8080:8080 --gpus all cv-platform:latest
+```
 
-**Q: What inference engines?**
-A: PyTorch (baseline), ONNX Runtime, TensorRT FP16
+### API Endpoints (Port 8080)
 
-**Q: How does optimization work?**
-A: 5-generation genetic algorithm optimizes hyperparameters, system auto-selects best inference engine
+**Authentication**
+- POST `/api/v1/auth/login`
+- POST `/api/v1/auth/logout`
 
-**Q: What's the deployment model?**
-A: Docker containers (inference service + Redis + PostgreSQL) via docker-compose
+**Models**
+- POST `/api/v1/models` (upload)
+- GET `/api/v1/models` (list)
+- GET `/api/v1/models/:id` (details)
+- DELETE `/api/v1/models/:id` (admin only)
 
-**Q: Is this production-ready?**
-A: No, this is an MVP for demonstration and learning
+**Datasets**
+- POST `/api/v1/datasets` (upload)
+- GET `/api/v1/datasets` (list)
+- GET `/api/v1/datasets/:id` (details)
 
-## Next Steps
+**Training**
+- POST `/api/v1/training` (start)
+- GET `/api/v1/training/:id` (status)
+- DELETE `/api/v1/training/:id` (cancel)
 
-1. Read `docs/project-overview/SUMMARY.md`
-2. Review `docs/technical/design.md`
-3. Check `docs/planning/tasks.md` for current phase
-4. Start building!
+**Benchmarking**
+- POST `/api/v1/benchmark` (start)
+- GET `/api/v1/benchmark/:id` (status)
+- GET `/api/v1/benchmark/:id/report` (results)
+
+**Inference**
+- POST `/api/v1/inference/predict`
+- GET `/api/v1/inference/health`
+
+**System**
+- GET `/api/v1/health`
+- GET `/api/v1/metrics`
+
+## Roles & Permissions
+
+| Role | Permissions |
+|------|-------------|
+| Admin | Full access (train, GA, benchmark, package) |
+| Engineer | Train, inference, view reports |
+| Viewer | Inference endpoint only |
+
+## Performance Targets
+
+| Metric | Target |
+|--------|--------|
+| Inference Latency | < 100ms |
+| P95 Latency | < 200ms |
+| Concurrent Users | 100 |
+| GPU Workers | ≤ 2 |
+| Test Coverage | > 80% |
+
+## Documentation Links
+
+- [README.md](README.md) - Project overview
+- [EXECUTION_PLAN.md](EXECUTION_PLAN.md) - Detailed 6-week plan
+- [docs/technical/requirements.md](docs/technical/requirements.md) - Functional requirements
+- [docs/technical/design.md](docs/technical/design.md) - System architecture
+- [docs/planning/tasks.md](docs/planning/tasks.md) - Task breakdown
+
+## Getting Started
+
+1. Review the execution plan: `EXECUTION_PLAN.md`
+2. Set up development environment (Go, Python, C++, Docker, CUDA)
+3. Start with Week 1, Day 1 tasks
+4. Follow the critical path in the execution plan
+5. Test each component before moving to the next
+
+## Risk Mitigation
+
+**High-Risk Items:**
+1. TensorRT compatibility - Test early with YOLOv8
+2. GPU memory limits - Use small models (YOLOv8n)
+3. Docker + GPU access - Set up Day 1
+4. Dataset validation - Strict validation, clear errors
+
+## Support Resources
+
+- Go Documentation: https://go.dev/doc/
+- PyTorch Documentation: https://pytorch.org/docs/
+- ONNX Runtime: https://onnxruntime.ai/docs/
+- TensorRT: https://docs.nvidia.com/deeplearning/tensorrt/
+- Docker + GPU: https://docs.nvidia.com/datacenter/cloud-native/
 
 ---
 
-**Last Updated**: [Current Date]
-**Project Status**: MVP Development Phase
+**Last Updated**: February 24, 2026  
+**Status**: Ready for implementation
