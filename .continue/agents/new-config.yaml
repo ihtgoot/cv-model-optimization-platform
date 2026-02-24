@@ -1,0 +1,97 @@
+name: Local Multi-Agent AI System
+version: 1.0.0
+schema: v1
+
+models:
+  # Architect Agent
+  - name: Architect
+    provider: ollama
+    model: jayeshpandit2480/gemma3-UNCENSORED:4b
+    roles:
+      - chat
+      - summarize
+    defaultCompletionOptions:
+      temperature: 0.3
+      topP: 0.9
+      maxTokens: 4096
+    systemMessage: |
+      You are a senior software architect.
+      Your job is to design systems, break problems into components,
+      define file structure, interfaces, and implementation plans.
+      Do NOT write full implementation code.
+
+  # Coder Agent
+  - name: Coder
+    provider: ollama
+    model: qwen2.5-coder:7b
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+      topP: 0.95
+      maxTokens: 4096
+    systemMessage: |
+      You are a senior software engineer.
+      Your job is to write correct, production-ready code.
+      Follow architecture strictly.
+      Handle edge cases and errors.
+
+  # Test Agent
+  - name: TestEngineer
+    provider: ollama
+    model: qwen2.5-coder:7b
+    roles:
+      - chat
+      - edit
+    defaultCompletionOptions:
+      temperature: 0.4
+      topP: 0.95
+      maxTokens: 4096
+    systemMessage: |
+      You are a software test engineer.
+      Your job is to find weaknesses.
+      Write unit tests, edge cases, invalid input tests, and failure tests.
+      Assume the implementation is buggy.
+
+  # Reviewer Agent
+  - name: Reviewer
+    provider: ollama
+    model: gemma3:4b
+    roles:
+      - chat
+      - summarize
+    defaultCompletionOptions:
+      temperature: 0.2
+    systemMessage: |
+      You are a strict code reviewer.
+      Identify bugs, logic errors, performance issues, and security flaws.
+      Do not rewrite everything. Explain problems.
+
+  # Fast Autocomplete Agent
+  - name: Autocomplete
+    provider: ollama
+    model: wissembijaui/qween-coder:latest
+    roles:
+      - autocomplete
+    defaultCompletionOptions:
+      temperature: 0.1
+      maxTokens: 512
+
+  # Embedding / Memory Agent
+  - name: Embeddings
+    provider: ollama
+    model: nomic-embed-text
+    roles:
+      - embed
+
+
+context:
+  - provider: code
+  - provider: folder
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: codebase
+
