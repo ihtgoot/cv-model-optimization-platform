@@ -6,7 +6,7 @@ models:
   # Architect Agent
   - name: Architect
     provider: ollama
-    model: jayeshpandit2480/gemma3-UNCENSORED:4b
+    model: gemma3:12b                        
     roles:
       - chat
       - summarize
@@ -41,7 +41,7 @@ models:
   # Test Agent
   - name: TestEngineer
     provider: ollama
-    model: qwen2.5-coder:7b
+    model: qwen3:8b
     roles:
       - chat
       - edit

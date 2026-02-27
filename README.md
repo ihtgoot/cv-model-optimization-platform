@@ -270,6 +270,18 @@ Most ML projects stop at training. This platform focuses on:
 
 It is an ML infrastructure project, not a notebook demo.
 
+## Documentation
+
+See `docs/` for detailed technical documentation:
+
+- [Requirements](docs/technical/requirements.md) - Functional and non-functional requirements
+- [Design](docs/technical/design.md) - System architecture and design
+- [Optimization Protocol](docs/technical/optimization-protocol.md) - Inference optimization guide
+- [Tasks](docs/planning/tasks.md) - Implementation task breakdown
+- [Execution Plan](EXECUTION_PLAN.md) - 6-week implementation timeline
+- [Workflow](WORKFLOW.md) - Development workflow and best practices
+- [Quick Reference](QUICK_REFERENCE.md) - Quick start guide
+
 ---
 
 **Note:** This is an MVP focused on demonstrating end-to-end ML infrastructure capabilities. See `docs/` for detailed technical documentation.

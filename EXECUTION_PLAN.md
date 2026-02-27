@@ -15,8 +15,8 @@
 - Initialize Go project structure
 - Set up Go modules and dependencies
 - Create project directory structure
-- Set up Git repository
-- Configure development environment (Docker, CUDA)
+- Set up Git repository : done
+- Configure development environment (Docker, CUDA) : 
 
 **Day 3-4: HTTP Server & Database**
 - Implement HTTP server (port 8080)

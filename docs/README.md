@@ -12,7 +12,8 @@ docs/
 │   └── project-summary.md              # Detailed project overview
 ├── technical/                          # Technical specifications
 │   ├── design.md                       # System architecture and design
-│   └── requirements.md                 # Functional and non-functional requirements
+│   ├── requirements.md                 # Functional and non-functional requirements
+│   └── optimization-protocol.md        # Inference optimization protocol
 ├── planning/                           # Project planning and tasks
 │   └── tasks.md                        # Detailed task breakdown and timeline
 └── research/                           # Research notes and conversations
@@ -32,6 +33,7 @@ docs/
 ### For Developers
 - **Architecture**: `technical/design.md`
 - **Requirements**: `technical/requirements.md`
+- **Optimization**: `technical/optimization-protocol.md`
 - **Tasks**: `planning/tasks.md`
 
 ### For Project Managers
@@ -58,6 +60,13 @@ docs/
   - 6 non-functional requirement categories
   - Acceptance criteria
   - Constraints and assumptions
+
+- **optimization-protocol.md**: Inference optimization protocol including:
+  - Step-by-step benchmarking process
+  - Performance measurement guidelines
+  - Stopping criteria
+  - Expected results for RTX 4060
+  - Bottleneck identification
 
 ### Planning
 - **tasks.md**: Implementation roadmap with:
