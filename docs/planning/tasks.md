@@ -1,4 +1,4 @@
-# Tasks: CV Model Optimization & Deployment Platform (MVP - 160 Hours / 35 Days)
+# Tasks: CV Model Optimization & Deployment Platform (MVP - 140 Hours / 35 Days)
 
 ## Phase 1: Core Infrastructure & API (40 hours)
 
@@ -124,6 +124,14 @@
 - [ ] Implement report view endpoint (technical/simple)
 - [ ] Implement report export endpoint (JSON, CSV)
 
+### 4.3 Manual Docker Deployment
+- [ ] Create Dockerfile for platform
+- [ ] Create docker-compose.yml
+- [ ] Document deployment steps
+- [ ] Test containerized deployment
+
+**Note:** Automated packaging tool deferred to post-MVP (separate CLI tool).
+
 ## Phase 5: User Interface (10 hours)
 
 ### 5.1 TUI Interface (Primary)
@@ -164,10 +172,13 @@
 - [ ] Write deployment guide
 - [ ] Write user guide (TUI)
 
-### 7.2 Docker Packaging
-- [ ] Create Dockerfile
-- [ ] Create docker-compose.yml
+### 7.2 Manual Docker Deployment
+- [ ] Verify Dockerfile works
+- [ ] Verify docker-compose.yml works
 - [ ] Test Docker build and run
+- [ ] Document deployment process
+
+**Note:** Automated packaging tool is a separate project (post-MVP).
 
 ## Phase 8: MVP Refinement & Release (10 hours)
 
@@ -232,23 +243,23 @@ Phase 8 (Release - 10 hours)
 └─ 8.3 Release Preparation (depends on 8.2)
 ```
 
-## Estimated Effort (MVP - 160 Hours / 35 Days)
+## Estimated Effort (MVP - 140 Hours / 35 Days)
 
 | Phase | Tasks | Estimated Hours |
 |-------|-------|-----------------|
-| 1 | Infrastructure | 40 |
-| 2 | Training & Optimization | 40 |
-| 3 | Benchmarking & Inference | 50 |
+| 1 | Infrastructure | 35 |
+| 2 | Training & Optimization | 35 |
+| 3 | Benchmarking & Inference | 35 |
 | 4 | Report Generation | 20 |
 | 5 | User Interface | 10 |
-| 6 | Testing | 20 |
+| 6 | Testing | 15 |
 | 7 | Documentation & Deployment | 10 |
 | 8 | Refinement & Release | 10 |
-| **Total** | **MVP** | **160 hours** |
+| **Total** | **MVP** | **140 hours** |
 
 ## MVP Scope vs Full Platform
 
-### Included in MVP (160 hours)
+### Included in MVP (140 hours)
 - ✅ Go HTTP API with authentication & RBAC
 - ✅ SQLite database with core schema
 - ✅ Model & dataset management
@@ -260,14 +271,14 @@ Phase 8 (Release - 10 hours)
 - ✅ Deterministic report generation
 - ✅ TUI interface (core screens)
 - ✅ Unit & integration tests
-- ✅ Docker packaging
+- ✅ Manual Docker deployment
 - ✅ Basic documentation
 
 ### Deferred to Phase 2 (Post-MVP)
 - ❌ Genetic Algorithm optimization
 - ❌ TensorRT FP16 engine
 - ❌ Multi-engine benchmarking (TensorRT)
-- ❌ Package generation API
+- ❌ Automated packaging tool (separate CLI)
 - ❌ HTMX web UI
 - ❌ Advanced monitoring & alerting
 - ❌ CI/CD pipeline
